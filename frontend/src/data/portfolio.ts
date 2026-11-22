@@ -58,7 +58,6 @@ export const PROFILE_DATA = {
 };
 
 export const HERO_TECH_STRIP = [
-  // Row 1 — Core MERN & Languages
   { code: 'Re', name: 'React' },
   { code: 'JS', name: 'JavaScript' },
   { code: 'TS', name: 'TypeScript' },
@@ -67,15 +66,6 @@ export const HERO_TECH_STRIP = [
   { code: 'Mo', name: 'MongoDB' },
   { code: 'My', name: 'MySQL' },
   { code: 'Gi', name: 'Git' },
-  // Row 2 — Frameworks, Realtime, Core Languages & Cloud
-  { code: 'Nx', name: 'Next.js' },
-  { code: 'Tw', name: 'Tailwind CSS' },
-  { code: 'Rx', name: 'Redux' },
-  { code: 'So', name: 'Socket.io' },
-  { code: 'Jv', name: 'Java' },
-  { code: 'Cp', name: 'C++' },
-  { code: 'Pm', name: 'Postman' },
-  { code: 'Vc', name: 'Vercel' },
 ];
 
 export const ABOUT_DATA = {

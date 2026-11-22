@@ -12,9 +12,6 @@ export function HeroSection() {
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const rowOneTech = HERO_TECH_STRIP.slice(0, 8);
-  const rowTwoTech = HERO_TECH_STRIP.slice(8, 16);
-
   useEffect(() => {
     const currentRole = PROFILE_DATA.roles[roleIndex];
     const typingSpeed = isDeleting ? 42 : 80;
@@ -189,49 +186,32 @@ export function HeroSection() {
           </motion.div>
         </div>
 
-        {/* 8-by-8 Dual Horizontal Opposite-Scrolling Medallion Rows (Exact Reference Motion) */}
+        {/* Single Clean Row of 8 Unique Circular Medallions (No Duplicates, Hover Lift + Tooltip) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.25 }}
-          className="mt-14 space-y-5 marquee-mask overflow-hidden py-4"
+          className="mt-14 pt-2"
         >
-          {/* Row 1: 8 Icons Scrolling Left */}
-          <div className="marquee-row overflow-visible py-2">
-            <div className="animate-marquee-left gap-6 sm:gap-8 pr-6 sm:pr-8">
-              {[...rowOneTech, ...rowOneTech].map((tech, idx) => (
-                <div
-                  key={`r1-${tech.name}-${idx}`}
-                  className="group relative flex items-center justify-center cursor-pointer shrink-0 transition-transform duration-200 hover:-translate-y-2 hover:scale-110"
-                >
-                  <span className="pointer-events-none absolute -top-9 z-20 px-2.5 py-1 rounded-lg bg-ink text-canvas text-[11px] font-mono font-medium opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 whitespace-nowrap shadow-[var(--shadow-soft)]">
-                    {tech.name}
-                  </span>
-                  <div className="w-15 h-15 sm:w-16 sm:h-16 rounded-full bg-white/95 border border-border-subtle/80 shadow-[0_8px_24px_-8px_rgba(37,35,76,0.14)] group-hover:border-primary/45 group-hover:shadow-[var(--shadow-violet-glow)] flex items-center justify-center transition-all duration-200">
-                    <TechLogo name={tech.name} className="w-7 h-7 sm:w-8 sm:h-8" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <div className="flex flex-wrap sm:flex-nowrap items-center justify-center gap-4 sm:gap-7">
+            {HERO_TECH_STRIP.map((tech) => (
+              <motion.div
+                key={tech.name}
+                whileHover={{ y: -8, scale: 1.14 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                className="group relative flex items-center justify-center cursor-pointer shrink-0"
+              >
+                {/* Dark Pill Tooltip on Hover */}
+                <span className="pointer-events-none absolute -top-9 z-20 px-2.5 py-1 rounded-lg bg-ink text-canvas text-[11px] font-mono font-medium opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 whitespace-nowrap shadow-[var(--shadow-soft)]">
+                  {tech.name}
+                </span>
 
-          {/* Row 2: 8 Icons Scrolling Right */}
-          <div className="marquee-row overflow-visible py-2">
-            <div className="animate-marquee-right gap-6 sm:gap-8 pr-6 sm:pr-8">
-              {[...rowTwoTech, ...rowTwoTech].map((tech, idx) => (
-                <div
-                  key={`r2-${tech.name}-${idx}`}
-                  className="group relative flex items-center justify-center cursor-pointer shrink-0 transition-transform duration-200 hover:-translate-y-2 hover:scale-110"
-                >
-                  <span className="pointer-events-none absolute -top-9 z-20 px-2.5 py-1 rounded-lg bg-ink text-canvas text-[11px] font-mono font-medium opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 whitespace-nowrap shadow-[var(--shadow-soft)]">
-                    {tech.name}
-                  </span>
-                  <div className="w-15 h-15 sm:w-16 sm:h-16 rounded-full bg-white/95 border border-border-subtle/80 shadow-[0_8px_24px_-8px_rgba(37,35,76,0.14)] group-hover:border-primary/45 group-hover:shadow-[var(--shadow-violet-glow)] flex items-center justify-center transition-all duration-200">
-                    <TechLogo name={tech.name} className="w-7 h-7 sm:w-8 sm:h-8" />
-                  </div>
+                {/* Soft Circular Medallion */}
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/95 border border-border-subtle/80 shadow-[0_8px_24px_-8px_rgba(37,35,76,0.14)] group-hover:border-primary/45 group-hover:shadow-[var(--shadow-violet-glow)] flex items-center justify-center transition-all duration-200">
+                  <TechLogo name={tech.name} className="w-7 h-7 sm:w-8 sm:h-8" />
                 </div>
-              ))}
-            </div>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>

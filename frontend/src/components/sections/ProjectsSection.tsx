@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import { ArrowRight, BookOpen, ExternalLink } from 'lucide-react';
 import { PROJECTS_DATA, type ProjectItem } from '@/data/portfolio';
 import { SectionContainer } from '@/components/ui/SectionContainer';
 import { Card } from '@/components/ui/Card';
@@ -22,7 +23,8 @@ export function ProjectsSection() {
     <SectionContainer
       id="projects"
       eyebrow="Portfolio Showcase"
-      title="Featured Projects"
+      title="Featured"
+      titleHighlight="Projects"
       subtitle="Full-stack web applications engineered with clean architecture and responsive interfaces."
       className="scroll-mt-20"
     >
@@ -36,6 +38,7 @@ export function ProjectsSection() {
             transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
           >
             <Card
+              accent={index === 0 ? 'violet' : 'blue'}
               role="button"
               tabIndex={0}
               onClick={() => setSelectedProject(project)}
@@ -104,7 +107,13 @@ export function ProjectsSection() {
                   Explore Project Details
                   <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1.5" />
                 </span>
-                <span className="font-mono text-[11px] text-ink-muted">Click to inspect</span>
+                <Link
+                  to={`/projects/${project.slug}`}
+                  onClick={(e) => e.stopPropagation()}
+                  className="font-mono text-[11px] text-ink-secondary hover:text-primary underline underline-offset-2"
+                >
+                  Case Study &rarr;
+                </Link>
               </div>
             </Card>
           </motion.div>
@@ -175,8 +184,17 @@ export function ProjectsSection() {
               </div>
 
               <div className="flex flex-wrap items-center gap-3 pt-2">
-                <a href={selectedProject.liveUrl} target="_blank" rel="noopener noreferrer">
+                <Link
+                  to={`/projects/${selectedProject.slug}`}
+                  onClick={() => setSelectedProject(null)}
+                >
                   <Button variant="primary" size="sm">
+                    <BookOpen className="w-3.5 h-3.5" />
+                    Full Case Study
+                  </Button>
+                </Link>
+                <a href={selectedProject.liveUrl} target="_blank" rel="noopener noreferrer">
+                  <Button variant="outline" size="sm" className="bg-white">
                     <ExternalLink className="w-3.5 h-3.5" />
                     Live Demo
                   </Button>
@@ -189,16 +207,13 @@ export function ProjectsSection() {
                 </a>
                 <Button
                   type="button"
-                  variant="outline"
+                  variant="ghost"
                   size="sm"
-                  className="bg-white"
                   onClick={() => setSelectedProject(null)}
                 >
                   Close
                 </Button>
               </div>
-
-              <p className="text-[11px] text-ink-muted">{selectedProject.caseStudyNote}</p>
             </motion.div>
           </motion.div>
         )}

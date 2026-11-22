@@ -1,9 +1,13 @@
+import { Link, useLocation } from 'react-router-dom';
 import { PROFILE_DATA } from '@/data/portfolio';
 
 export function Footer() {
+  const { pathname } = useLocation();
+  const isHomePage = pathname === '/';
+
   return (
     <footer className="relative overflow-hidden bg-ink text-canvas py-14 px-4 sm:px-6 lg:px-8">
-      {/* Decorative 3D-shaded Violet Orbs matching video */}
+      {/* Decorative 3D-shaded Violet Orbs */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -top-8 left-12 w-28 h-28 rounded-full opacity-85"
@@ -22,6 +26,17 @@ export function Footer() {
       />
 
       <div className="relative max-w-4xl mx-auto text-center space-y-3 text-xs sm:text-sm">
+        <div className="flex items-center justify-center gap-2.5">
+          <img
+            src="/logo.svg"
+            alt="Jiya Sukhija Logo"
+            className="w-6 h-6 rounded-md object-contain"
+          />
+          <span className="font-display font-extrabold tracking-widest text-xs text-canvas">
+            JIYA SUKHIJA
+          </span>
+        </div>
+
         <p className="text-canvas/95 font-medium">
           Building thoughtful, reliable web applications.
         </p>
@@ -45,12 +60,21 @@ export function Footer() {
             LinkedIn
           </a>
           <span className="text-soft-violet">&bull;</span>
-          <a
-            href="#home"
-            className="underline underline-offset-4 hover:text-white transition-colors"
-          >
-            &uarr; Back to top
-          </a>
+          {isHomePage ? (
+            <a
+              href="#home"
+              className="underline underline-offset-4 hover:text-white transition-colors"
+            >
+              &uarr; Back to top
+            </a>
+          ) : (
+            <Link
+              to="/"
+              className="underline underline-offset-4 hover:text-white transition-colors"
+            >
+              &uarr; Back to Home
+            </Link>
+          )}
         </div>
 
         <p className="text-xs text-soft-violet pt-1">
