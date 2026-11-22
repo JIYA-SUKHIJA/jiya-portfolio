@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Download, Mail, Sparkles } from 'lucide-react';
+import { ArrowRight, Download, Mail } from 'lucide-react';
 import { HERO_TECH_STRIP, PROFILE_DATA } from '@/data/portfolio';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
@@ -46,8 +46,7 @@ export function HeroSection() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="lg:col-span-7 space-y-5"
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-lavender/80 border border-primary/25 text-xs font-mono font-semibold text-primary">
-              <Sparkles className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-lavender/80 border border-primary/25 text-xs font-mono font-semibold text-primary">
               WELCOME TO MY PORTFOLIO
             </div>
 
@@ -106,10 +105,10 @@ export function HeroSection() {
                 </span>
               </div>
 
-              <div className="relative w-32 h-32 mx-auto my-2 flex items-center justify-center">
+              <div className="relative w-44 h-44 mx-auto my-2 flex items-center justify-center">
                 <div
                   aria-hidden="true"
-                  className="absolute inset-1 rounded-full bg-gradient-to-tr from-primary/25 to-soft-violet/40 blur-md"
+                  className="absolute inset-1.5 rounded-full bg-gradient-to-tr from-primary/25 to-soft-violet/40 blur-md"
                 />
                 <motion.div
                   aria-hidden="true"
@@ -117,11 +116,16 @@ export function HeroSection() {
                   transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
                   className="absolute inset-0 rounded-full border-2 border-dashed border-primary/45"
                 />
-                <div className="relative w-26 h-26 rounded-full bg-gradient-to-br from-lavender via-white to-soft-violet/40 border-2 border-white shadow-[var(--shadow-elevated)] flex items-center justify-center overflow-hidden">
+                <div className="relative w-36 h-36 rounded-full bg-gradient-to-br from-lavender via-white to-soft-violet/40 border-2 border-white shadow-[var(--shadow-elevated)] flex items-center justify-center overflow-hidden">
                   <img
                     src={PROFILE_DATA.profileImage}
                     alt={PROFILE_DATA.name}
-                    className="w-full h-full object-cover object-center"
+                    width={144}
+                    height={144}
+                    loading="eager"
+                    decoding="async"
+                    fetchPriority="high"
+                    className="w-full h-full object-cover object-top"
                   />
                 </div>
               </div>

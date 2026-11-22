@@ -1,194 +1,175 @@
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { NAV_ITEMS } from '@/data/navigation';
-import { Button } from '@/components/ui/Button';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-export function Navbar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeHref, setActiveHref] = useState('#home');
-  const { pathname } = useLocation();
-  const isHomePage = pathname === '/';
+const NAV_ITEMS = [
+  { label: 'Home', href: '#home', id: 'home' },
+  { label: 'About', href: '#about', id: 'about' },
+  { label: 'Skills', href: '#skills', id: 'skills' },
+  { label: 'Projects', href: '#projects', id: 'projects' },
+  { label: 'Experience', href: '#experience', id: 'experience' },
+  { label: 'Contact', href: '#contact', id: 'contact' },
+];
+
+export const Navbar: React.FC = () => {
+  const [activeSection, setActiveSection] = useState<string>('home');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const [scrolled, setScrolled] = useState<boolean>(false);
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isHomePage) {
-      setActiveHref('#projects');
-      return;
-    }
-
-    const sectionIds = NAV_ITEMS.map((item) => item.href.replace('#', ''));
-
     const handleScroll = () => {
-      const scrollPos = window.scrollY + 180;
-      for (let i = sectionIds.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sectionIds[i]);
-        if (el && el.offsetTop <= scrollPos) {
-          setActiveHref(`#${sectionIds[i]}`);
+      setScrolled(window.scrollY > 16);
+
+      if (location.pathname !== '/') return;
+
+      const scrollPosition = window.scrollY + 140;
+      for (let i = NAV_ITEMS.length - 1; i >= 0; i--) {
+        const section = document.getElementById(NAV_ITEMS[i].id);
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(NAV_ITEMS[i].id);
           break;
         }
       }
     };
 
-    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isHomePage]);
+  }, [location.pathname]);
 
-  const handleLinkClick = (href: string) => {
-    setActiveHref(href);
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    id: string
+  ) => {
+    e.preventDefault();
     setMobileMenuOpen(false);
+    setActiveSection(id);
+
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        const target = document.getElementById(id);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+      return;
+    }
+
+    const target = document.getElementById(id);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-canvas/85 backdrop-blur-md border-b border-border-subtle">
-      <nav
-        aria-label="Primary Navigation"
-        className="max-w-6xl mx-auto flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8"
-      >
-        {/* Left Brand with Logo */}
-        {isHomePage ? (
-          <a
-            href="#home"
-            onClick={() => handleLinkClick('#home')}
-            className="inline-flex items-center gap-2.5 font-display font-extrabold text-xs sm:text-sm tracking-widest text-ink hover:text-primary transition-colors"
-          >
-            <img
-              src="/logo.svg"
-              alt="Jiya Sukhija Logo"
-              className="w-7 h-7 rounded-lg object-contain"
-            />
-            <span>JIYA SUKHIJA</span>
-          </a>
-        ) : (
-          <Link
-            to="/"
-            onClick={() => handleLinkClick('#home')}
-            className="inline-flex items-center gap-2.5 font-display font-extrabold text-xs sm:text-sm tracking-widest text-ink hover:text-primary transition-colors"
-          >
-            <img
-              src="/logo.svg"
-              alt="Jiya Sukhija Logo"
-              className="w-7 h-7 rounded-lg object-contain"
-            />
-            <span>JIYA SUKHIJA</span>
-          </Link>
-        )}
+    <header
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        scrolled
+          ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200/70'
+          : 'bg-white/90 backdrop-blur-sm border-b border-slate-100'
+      }`}
+    >
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-10">
+        {/* Brand Logo & Name */}
+        <Link
+          to="/"
+          onClick={(e) =>
+            handleNavClick(e as unknown as React.MouseEvent<HTMLAnchorElement>, 'home')
+          }
+          className="flex items-center gap-3 group"
+        >
+          <img
+            src="/logo.svg"
+            alt="Jiya Sukhija Logo"
+            className="h-9 w-9 rounded-lg object-contain transition-transform duration-200 group-hover:scale-105"
+          />
+          <span className="text-lg md:text-xl font-bold tracking-wider text-[#1E1B39]">
+            JIYA SUKHIJA
+          </span>
+        </Link>
 
-        {/* Center Navigation Links with Active Pill */}
-        <ul className="hidden md:flex items-center gap-2">
+        {/* Desktop Navigation Links */}
+        <nav className="hidden md:flex items-center gap-2 lg:gap-3">
           {NAV_ITEMS.map((item) => {
-            const isActive = activeHref === item.href;
-            const linkClass = `px-3.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-              isActive
-                ? 'bg-lavender text-ink font-semibold'
-                : 'text-ink-muted hover:text-ink hover:bg-lavender/50'
-            }`;
-
+            const isActive =
+              location.pathname === '/' && activeSection === item.id;
             return (
-              <li key={item.href}>
-                {isHomePage ? (
-                  <a
-                    href={item.href}
-                    onClick={() => handleLinkClick(item.href)}
-                    className={linkClass}
-                  >
-                    {item.label}
-                  </a>
-                ) : (
-                  <Link
-                    to={`/${item.href}`}
-                    onClick={() => handleLinkClick(item.href)}
-                    className={linkClass}
-                  >
-                    {item.label}
-                  </Link>
-                )}
-              </li>
+              <a
+                key={item.id}
+                href={item.href}
+                onClick={(e) => handleNavClick(e, item.id)}
+                className={`rounded-xl px-4 py-2 text-[15px] font-medium transition-all duration-200 ${
+                  isActive
+                    ? 'bg-[#E2E4F3] text-[#1E1B39] font-semibold'
+                    : 'text-[#5A5D7A] hover:bg-slate-100/80 hover:text-[#1E1B39]'
+                }`}
+              >
+                {item.label}
+              </a>
             );
           })}
-        </ul>
+        </nav>
 
-        {/* Right CTA */}
-        <div className="hidden md:block">
-          {isHomePage ? (
-            <a href="#contact" onClick={() => handleLinkClick('#contact')}>
-              <Button size="sm" variant="primary" className="rounded-xl px-4 py-2 text-xs">
-                Let&apos;s Connect
-              </Button>
-            </a>
-          ) : (
-            <Link to="/#contact" onClick={() => handleLinkClick('#contact')}>
-              <Button size="sm" variant="primary" className="rounded-xl px-4 py-2 text-xs">
-                Let&apos;s Connect
-              </Button>
-            </Link>
-          )}
+        {/* Desktop Right CTA — Exact Original Color (#6356E5) */}
+        <div className="hidden md:flex items-center">
+          <a
+            href="#contact"
+            onClick={(e) => handleNavClick(e, 'contact')}
+            className="rounded-2xl bg-[#6356E5] px-6 py-2.5 text-[15px] font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#5246D4] hover:shadow-md active:scale-95"
+          >
+            Let's Connect
+          </a>
         </div>
 
-        {/* Mobile Menu Toggle */}
+        {/* Mobile Hamburger Button */}
         <button
           type="button"
           onClick={() => setMobileMenuOpen((prev) => !prev)}
-          aria-expanded={mobileMenuOpen}
           aria-label="Toggle navigation menu"
-          className="md:hidden p-2 rounded-xl text-ink hover:text-primary hover:bg-lavender/70 transition-colors"
+          className="inline-flex items-center justify-center rounded-xl p-2.5 text-[#1E1B39] hover:bg-slate-100 md:hidden"
         >
-          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
-      </nav>
+      </div>
 
-      {/* Mobile Dropdown */}
+      {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-border-subtle bg-canvas/95 backdrop-blur-md px-5 py-4 space-y-3">
-          <ul className="space-y-1.5">
+        <div className="border-t border-slate-100 bg-white px-6 pb-6 pt-3 shadow-lg md:hidden">
+          <nav className="flex flex-col gap-2">
             {NAV_ITEMS.map((item) => {
-              const isActive = activeHref === item.href;
-              const mobileLinkClass = `block py-2 px-3 rounded-xl text-sm font-medium transition-colors ${
-                isActive
-                  ? 'bg-lavender text-ink font-semibold'
-                  : 'text-ink-secondary hover:text-primary hover:bg-lavender/50'
-              }`;
-
+              const isActive =
+                location.pathname === '/' && activeSection === item.id;
               return (
-                <li key={item.href}>
-                  {isHomePage ? (
-                    <a
-                      href={item.href}
-                      onClick={() => handleLinkClick(item.href)}
-                      className={mobileLinkClass}
-                    >
-                      {item.label}
-                    </a>
-                  ) : (
-                    <Link
-                      to={`/${item.href}`}
-                      onClick={() => handleLinkClick(item.href)}
-                      className={mobileLinkClass}
-                    >
-                      {item.label}
-                    </Link>
-                  )}
-                </li>
+                <a
+                  key={item.id}
+                  href={item.href}
+                  onClick={(e) => handleNavClick(e, item.id)}
+                  className={`rounded-xl px-4 py-3 text-base font-medium transition-colors ${
+                    isActive
+                      ? 'bg-[#E2E4F3] text-[#1E1B39] font-semibold'
+                      : 'text-[#5A5D7A] hover:bg-slate-50'
+                  }`}
+                >
+                  {item.label}
+                </a>
               );
             })}
-          </ul>
-          <div className="pt-2">
-            {isHomePage ? (
-              <a href="#contact" onClick={() => handleLinkClick('#contact')} className="block">
-                <Button size="md" variant="primary" className="w-full">
-                  Let&apos;s Connect
-                </Button>
-              </a>
-            ) : (
-              <Link to="/#contact" onClick={() => handleLinkClick('#contact')} className="block">
-                <Button size="md" variant="primary" className="w-full">
-                  Let&apos;s Connect
-                </Button>
-              </Link>
-            )}
-          </div>
+            <a
+              href="#contact"
+              onClick={(e) => handleNavClick(e, 'contact')}
+              className="mt-2 rounded-2xl bg-[#6356E5] px-6 py-3 text-center text-base font-semibold text-white shadow-sm hover:bg-[#5246D4]"
+            >
+              Let's Connect
+            </a>
+          </nav>
         </div>
       )}
     </header>
   );
-}
+};
+
+export default Navbar;
