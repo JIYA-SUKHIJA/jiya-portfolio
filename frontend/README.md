@@ -1,75 +1,110 @@
-# React + TypeScript + Vite
+# 🚀 Personal Portfolio — Jiya Sukhija
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive, and high-performance personal portfolio website built with **React**, **Vite**, **TypeScript**, and **Tailwind CSS**. Features custom project showcases, interactive routing, and an integrated contact form.
 
-Currently, two official plugins are available:
+🔗 **Live Demo:** [jiyasukhija.netlify.app](https://jiyasukhija.netlify.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🌟 Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **⚡ Fast & Modern:** Powered by Vite for instant load times and optimized production builds.
+- **🎨 Responsive UI/UX:** Styled using Tailwind CSS for clean layout design across mobile, tablet, and desktop viewports.
+- **🗺️ Smooth Client-Side Routing:** Dynamic multi-page navigation for project showcases (`/projects/showx`, `/projects/taskflow`) handled via React Router.
+- **📬 Functional Contact Form:** Direct email delivery powered by Web3Forms integration.
+- **🛠️ Clean Codebase:** Modular component architecture written with strict TypeScript typing.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Frontend Framework:** React 18+
+- **Build Tool:** Vite
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Icons & UI:** Lucide React / Tailwind Utilities
+- **Form Service:** Web3Forms API
+- **Deployment:** Netlify
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📁 Project Structure
 
+```text
+jiya-portfolio/
+├── frontend/
+│   ├── public/
+│   │   └── _redirects        # Netlify SPA routing rules
+│   ├── src/
+│   │   ├── assets/           # Images & static assets
+│   │   ├── components/       # Reusable UI components
+│   │   ├── pages/            # Page-level components & routes
+│   │   ├── App.tsx           # Main application routing & layout
+│   │   └── main.tsx          # Application entry point
+│   ├── package.json
+│   ├── vite.config.ts
+│   └── tailwind.config.js
+└── README.md
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Getting Started Locally
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Follow these steps to run the project locally on your machine:
 
+### 1. Clone the repository
+```bash
+git clone https://github.com/JIYA-SUKHIJA/jiya-portfolio.git
+cd jiya-portfolio/frontend
 ```
+
+### 2. Install dependencies
+```bash
+npm install
+```
+
+### 3. Set up environment variables
+Create a `.env` file in the `frontend/` root folder and add your Web3Forms Access Key:
+```env
+VITE_WEB3FORMS_ACCESS_KEY=your_web3forms_access_key_here
+```
+
+### 4. Start the development server
+```bash
+npm run dev
+```
+Open `http://localhost:5173` in your browser to view the application.
+
+---
+
+## 📦 Production Build
+
+To create an optimized production bundle:
+
+```bash
+npm run build
+```
+
+The output files will be generated in the `frontend/dist` directory.
+
+---
+
+## 🌐 Deployment (Netlify)
+
+This project is configured for seamless deployment on Netlify:
+- **Base directory:** `frontend`
+- **Build command:** `npm run build`
+- **Publish directory:** `dist`
+- **SPA Rewrite:** Included in `public/_redirects` (`/* /index.html 200`)
+
+---
+
+## 👤 Author
+
+**Jiya Sukhija**
+- Portfolio: [jiyasukhija.netlify.app](https://jiyasukhija.netlify.app)
+- GitHub: [@JIYA-SUKHIJA](https://github.com/JIYA-SUKHIJA)
+
+---
+*Feel free to star ⭐️ this repository if you find it helpful!*
