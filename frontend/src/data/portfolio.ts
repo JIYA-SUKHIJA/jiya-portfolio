@@ -126,7 +126,7 @@ export const PROJECTS_DATA: ProjectItem[] = [
       'PDF ticket generation',
       'Deployed on Vercel and Render',
     ],
-    liveUrl: 'https://taskflow-dashboard-ecru.vercel.app/',
+    liveUrl: 'https://showx-the-cinema-hub.vercel.app/',
     githubUrl: 'https://github.com/JIYA-SUKHIJA/showx-the-cinema-hub',
     image: showxImg,
     caseStudyNote: 'Full case-study pages (/projects/showx, /projects/taskflow) belong in the next build.',

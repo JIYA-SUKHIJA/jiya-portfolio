@@ -190,7 +190,7 @@ export function HeroSection() {
           </motion.div>
         </div>
 
-        {/* Single Clean Row of 8 Unique Circular Medallions (No Duplicates, Hover Lift + Tooltip) */}
+        {/* Single Clean Row of 8 Unique Circular Medallions (Gentle Float + Hover Lift + Tooltip) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -198,11 +198,17 @@ export function HeroSection() {
           className="mt-14 pt-2"
         >
           <div className="flex flex-wrap sm:flex-nowrap items-center justify-center gap-4 sm:gap-7">
-            {HERO_TECH_STRIP.map((tech) => (
+            {HERO_TECH_STRIP.map((tech, index) => (
               <motion.div
                 key={tech.name}
-                whileHover={{ y: -8, scale: 1.14 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                animate={{ y: [0, -6, 0] }}
+                transition={{
+                  duration: 3.4,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  delay: index * 0.25,
+                }}
+                whileHover={{ y: -10, scale: 1.14 }}
                 className="group relative flex items-center justify-center cursor-pointer shrink-0"
               >
                 {/* Dark Pill Tooltip on Hover */}
