@@ -8,7 +8,8 @@ export function SkillsSection() {
     <SectionContainer
       id="skills"
       eyebrow="Technical Stack"
-      title="Skills & Technologies"
+      title="Skills &"
+      titleHighlight="Technologies"
       subtitle="Languages, frameworks, databases, and core computer science foundations."
       alternate
       className="scroll-mt-20"

@@ -27,7 +27,8 @@ export function AboutSection() {
     <SectionContainer
       id="about"
       eyebrow="About Me"
-      title="Who I Am"
+      title="Who I"
+      titleHighlight="Am"
       subtitle="MCA student and Full-Stack Developer focused on building reliable, database-driven web applications."
       alternate
       className="scroll-mt-20"

@@ -38,7 +38,7 @@ export function ProjectsSection() {
             transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
           >
             <Card
-              accent={index === 0 ? 'violet' : 'blue'}
+              accent="violet"
               role="button"
               tabIndex={0}
               onClick={() => setSelectedProject(project)}

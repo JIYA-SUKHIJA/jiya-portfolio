@@ -38,6 +38,8 @@ export interface EducationItem {
 export interface CertificationItem {
   title: string;
   issuer: string;
+  date?: string;
+  credentialId?: string;
 }
 
 export const PROFILE_DATA = {
@@ -183,9 +185,37 @@ export const EDUCATION_DATA: EducationItem[] = [
 ];
 
 export const CERTIFICATIONS_DATA: CertificationItem[] = [
-  { title: 'Data Structures & Algorithms', issuer: 'Simplilearn' },
-  { title: 'Node.js Fundamentals', issuer: 'Scaler' },
-  { title: 'Frontend Development', issuer: 'Simplilearn' },
-  { title: 'Networking Basics', issuer: 'Cisco' },
-  { title: 'AI Tools Workshop', issuer: 'Be10x' },
+  {
+    title: 'Smart India Hackathon (SIH) 2025',
+    issuer: 'MoE Innovation Cell • Team ZeroIndex',
+    date: 'Sep 2025',
+  },
+  {
+    title: 'NexHack — National Level Hackathon',
+    issuer: 'Geeta Technical Hub & SCSE',
+    date: 'Nov 2025',
+  },
+  {
+    title: 'Introduction to Generative AI',
+    issuer: 'Google Cloud & Simplilearn',
+    date: 'May 2026',
+    credentialId: '10196734',
+  },
+  {
+    title: 'Basics of Data Structures & Algorithms',
+    issuer: 'Simplilearn',
+    date: 'Dec 2025',
+    credentialId: '9554963',
+  },
+  {
+    title: 'Java Programming',
+    issuer: 'ScholarHat',
+    date: 'Dec 2025',
+    credentialId: 'FDRY121225',
+  },
+  {
+    title: 'Introduction to Cybersecurity',
+    issuer: 'Cisco Networking Academy',
+    date: 'Oct 2025',
+  },
 ];
