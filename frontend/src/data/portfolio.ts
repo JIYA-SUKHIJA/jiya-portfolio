@@ -47,8 +47,8 @@ export const PROFILE_DATA = {
   heroHeading: "Hi, I'm Jiya",
   roles: [
     'Full-Stack Developer',
-    'MERN Stack Engineer',
-    'React & TypeScript Developer',
+    'Software Developer',
+    'React & JavaScript Developer',
   ],
   heroSummary:
     'MCA student building responsive, database-driven applications with the MERN stack.',
